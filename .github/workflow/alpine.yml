@@ -31,20 +31,27 @@ jobs:
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-
+        
     - name: Push image
-        run: |
-          IMAGE_ID=CruiseTian/$IMAGE_NAME
+      run: |
+        # 拼接镜像 id，这个镜像 id 就是在使用 docker 镜像时 pull 后面的名字。
+        IMAGE_ID=CruiseTian/$IMAGE_NAME
 
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+        # 将所有的大写字母转为小写
+        IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
 
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+        # 从 GitHub.ref 中取出版本
+        VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
 
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+        # 从 tag 名字中替换 v 字符
+        [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
 
-          [ "$VERSION" == "master" ] && VERSION=latest
+        # Use Docker `latest` tag convention
+        [ "$VERSION" == "master" ] && VERSION=latest
 
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
+        echo IMAGE_ID=$IMAGE_ID
+        echo VERSION=$VERSION
+        # 设置镜像 id 和版本号
+        docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+        # 进行 push
+        docker push $IMAGE_ID:$VERSION
