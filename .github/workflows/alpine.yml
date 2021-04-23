@@ -3,11 +3,11 @@ on:
   pull_request:
     branches: master
   push:
-    # paths:
-    #   - 'alpine/Dockerfile'
-    #   - '.github/**'
-    tags:
-      - v*
+    paths:
+      - 'alpine/Dockerfile'
+      - '.github/**'
+    # tags:
+    #   - v*
   schedule:
     - cron: 10 16 * * *
 
