@@ -1,11 +1,13 @@
 name: Build and Push alpine docker image
 on:
+  workflow_dispatch:
+  repository_dispatch:
   pull_request:
     branches: master
   push:
     paths:
       - 'alpine/Dockerfile'
-      - '.github/**'
+      # - '.github/**'
     # tags:
     #   - v*
   schedule:
