@@ -4,7 +4,8 @@ on:
     branches: master
   push:
     paths:
-      - 'alpine/**'
+      - 'alpine/Dockerfile'
+      - '.github/**'
     tags:
       - v*
   schedule:
@@ -32,7 +33,6 @@ jobs:
         
     - name: Push image
       run: |
-        # 拼接镜像 id，这个镜像 id 就是在使用 docker 镜像时 pull 后面的名字。
         IMAGE_ID=CruiseTian/$IMAGE_NAME
 
         # 将所有的大写字母转为小写
