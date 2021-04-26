@@ -6,8 +6,8 @@ on:
     paths:
       - 'ubuntu/Dockerfile'
       - '.github/workflows/ubuntu.yml'
-    tags:
-      - v*
+    # tags:
+    #   - v*
   schedule:
     - cron: 20 16 * * *
 
