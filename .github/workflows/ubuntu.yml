@@ -1,13 +1,13 @@
-name: Build and Push alpine docker image
+name: Build and Push ubuntu docker image
 on:
   pull_request:
     branches: master
   push:
     paths:
-      - 'alpine/Dockerfile'
-      - '.github/**'
-    tags:
-      - v*
+      - 'ubuntu/Dockerfile'
+      - '.github/workflows/ubuntu.yml'
+    # tags:
+    #   - v*
   schedule:
     - cron: 20 16 * * *
 
